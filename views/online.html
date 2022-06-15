@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<%- include('header.html') %>
+	<title><%= process.env.SITE_NAME %> - Online</title>
+</head>
+
+<body>
+	<%- include('navbar.html') %>
+	<div style="color: white;">
+		<table id="onlineUsers">
+			<tr>
+			  <td>Online users:</td>
+			</tr>
+		</table>
+		<br>
+	</div>
+
+	<script>
+		var table = document.getElementById("onlineUsers");
+		ws.onmessage = (event) => {
+			json = JSON.parse(event.data)
+			if (json.onlineUsers) {
+				var onlineUsers = json.onlineUsers.sort()
+
+				table.innerHTML = "<tr><td>Online users:</td></tr>";
+				for (let i = 0; i < json.onlineUsers.length; i++) {
+					//json.onlineUsers
+					var row = table.insertRow(-1);
+					var cell1 = row.insertCell(0);
+					cell1.innerHTML = `<a href="#" id="${json.onlineUsers[i]}">${json.onlineUsers[i]}</a>`;
+				}
+			}
+		}
+	</script>
+</body>
+</html>

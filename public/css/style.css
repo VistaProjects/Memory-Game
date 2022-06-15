@@ -1,0 +1,71 @@
+body {
+	background: rgb(18 20 22);
+}
+
+.bootbox-close-button {
+	display: none;
+}
+
+.modal-footer {
+	border-top: 0
+}
+
+.bootbox-body {
+	text-align: center;
+}
+
+.checkbox-text {
+	text-decoration: none;
+	color: white !important;
+	position: relative;
+	top: 6px;
+}
+
+.form-check-input[type=checkbox] {
+	position: relative;
+	top: 5px;
+	width: 20px;
+	height: 20px;
+}
+
+.gloweffect {
+	/* text-shadow: 0 0 2.5px; */
+	/* use animiation gloweffect */
+	animation: gloweffect 1s infinite;
+	color: green;
+}
+
+@keyframes gloweffect{
+	0%{
+		text-shadow: 0 0 0px
+	}
+	25%{
+		text-shadow: 0 0 3.5px
+	}
+	50%{
+		text-shadow: 0 0 3.5px
+	}
+	100%{
+		text-shadow: 0 0 0px
+	}
+}
+
+.admin {
+	color: rgb(21, 255, 0);
+}
+
+.moderator {
+	color: rgb(251, 255, 0);
+}
+
+.currentUser {
+	color: rgb(0, 94, 255);
+}
+
+.bannedUser {
+	color: rgb(255, 0, 0);
+}
+
+.user {
+	color: white
+}

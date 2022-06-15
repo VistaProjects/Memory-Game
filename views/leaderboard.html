@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<%- include('header.html') %>
+	<title><%= process.env.SITE_NAME %> - Leaderboard</title>
+</head>
+
+<body>
+	<%- include('navbar.html') %>
+	<div style="color: white;">
+		<table>
+			<tr>
+				<th>#</th>
+				<th>Username</th>
+				<th>Win</th>
+				<th>Lose</th>
+			</tr>
+		 
+			<% for (let i = 0; i< leaderboard.length; i++) { %>
+				<tr>
+					<td><%= i + 1 %></td>
+					<% if (leaderboard[i].group == 2) { %>
+						<td class="admin"><%= leaderboard[i].username %></td>
+					<% } else { %>
+
+						<% if (leaderboard[i].username == username) { %>
+							<td class="currentUser"><%= leaderboard[i].username %></td>
+						<% } else if (leaderboard[i].group == 3) { %>
+							<td class="bannedUser"><%= leaderboard[i].username %></td>
+						<% } else { %>
+							<td><%= leaderboard[i].username %></td>
+						<% } %>
+
+					<% } %>
+					<td><%= leaderboard[i].wins %></td>
+					<td><%= leaderboard[i].loss %></td>
+				</tr>
+			<% } %>
+		 </table>
+	</div>
+</body>
+</html>
