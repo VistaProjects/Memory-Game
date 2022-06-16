@@ -35,10 +35,10 @@ const Server = new WebSocket.Server({port: port})
 var onlineUsers = new Set()
 
 Server.on('connection', (ws, req) => {
-	console.log('Received connection')
+	// console.log('Received connection')
 
 	ws.on('close', function() {
-		console.log('User closed connection')
+		// console.log('User closed connection')
 	});
 
 	ws.on('message', function incoming(received_data) {
@@ -52,6 +52,12 @@ Server.on('connection', (ws, req) => {
 			}
 			else
 			{
+				if (json.sender && json.receiver) {
+					Server.clients.forEach(function each(client) {
+						client.send(JSON.stringify({onlineUsers: array}));
+					});
+				}
+
 				console.log(`Received data: ${data}`)
 			}
 	
@@ -78,7 +84,6 @@ app.use(require('./middleware/sanitize.middleware'))
 app.use(cookieParser());
 
 app.get('/', (req, res) => {
-	
 	try {
 		const token = req.cookies[process.env.JWT_NAME];
 		const username = jwt.verify(token, process.env.JWT_SECRET).username

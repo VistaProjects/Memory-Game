@@ -1,6 +1,6 @@
 const User = require('../routes/user/user.model');
 
-const user = (user) => { return { username: user }}
+const user = user => { return { username: user }}
 
 class game {
 	
