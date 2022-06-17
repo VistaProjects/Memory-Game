@@ -84,23 +84,6 @@ setInterval(() => {
 	onlineUsers.clear()
 }, 1000)
 
-// Format for mysql
-
-// create table vraag
-// (
-//     id              int auto_increment,
-//     naam            varchar(255) not null,
-//     antwoord_a      varchar(255) null,
-//     antwoord_b      varchar(255) not null,
-//     antwoord_c      varchar(255) null,
-//     antwoord_d      varchar(255) null,
-//     juiste_antwoord varchar(255) not null,
-//     constraint vraag_pk
-//         primary key (id)
-// );
-// INSERT INTO `vraag` (`id`, `naam`, `antwoord_a`, `antwoord_b`, `antwoord_c`, `antwoord_d`, `juiste_antwoord`) VALUES ('', 'vraag naam', 'antwoord a', 'antwoord b', 'antwoord c', 'antwoord d', 'antwoord hier');
-
-
 app.engine('html', require('ejs').renderFile);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
