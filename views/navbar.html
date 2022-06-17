@@ -61,7 +61,7 @@
 
 <script>
 	const username = "<%= username %>"
-	const ws = new WebSocket('ws://localhost:1000')
+	const ws = new WebSocket('ws://localhost:1000?username=' + username)
 	
 	// Heartbeat
 	ws.onopen = (event) => {
@@ -72,6 +72,33 @@
 			}))
 		}, 500)
 	};
+
+	array1 = [ 1, 2, 0]
+	array2 = [ 0, 1, 0]
+	array3 = [ 0, 0, 1]
+
+
+
+
+	ws.onmessage = (event) => {
+		var json = JSON.parse(event.data)
+		// console log URL
+		var url = new URL(location.href).pathname
+
+		if (url == '/online') UpdateUsers(json)
+		
+		if (json.sender != null && json.receiver != null && json.receiver == username) {
+				bootbox.confirm(`${json.sender} challenged you, do you accept?`, function(result){ 
+				if (result) {
+					// Challenge user
+					ws.send(JSON.stringify({
+						newGame: [username, json.sender]
+					}))
+				}
+			});
+		}
+	}
+
 </script>
 
 <% if (admin) { %>

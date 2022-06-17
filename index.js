@@ -44,6 +44,8 @@ Server.on('connection', (ws, req) => {
 	ws.on('message', function incoming(received_data) {
 		var data = String(received_data)
 
+		// var user = req.url.split("=")[1]
+		// console.log(user)
 		try {
 			var json = JSON.parse(data)
 	
@@ -52,13 +54,21 @@ Server.on('connection', (ws, req) => {
 			}
 			else
 			{
-				if (json.sender && json.receiver) {
+				console.log(json)
+				// Check if we have a challenge request
+				if (json.sender != null) {
 					Server.clients.forEach(function each(client) {
-						client.send(JSON.stringify({onlineUsers: array}));
+						client.send(JSON.stringify(json));
 					});
 				}
 
-				console.log(`Received data: ${data}`)
+				// Check if the receiver accpected the challenge
+				if (json.newGame) {
+					// Server.clients.forEach(function each(client) {
+					// 	client.send(JSON.stringify({onlineUsers: array}));
+					// });
+					// console.log(json)
+				}
 			}
 	
 		} catch (e) {}
@@ -74,7 +84,21 @@ setInterval(() => {
 	onlineUsers.clear()
 }, 1000)
 
+// Format for mysql
 
+// create table vraag
+// (
+//     id              int auto_increment,
+//     naam            varchar(255) not null,
+//     antwoord_a      varchar(255) null,
+//     antwoord_b      varchar(255) not null,
+//     antwoord_c      varchar(255) null,
+//     antwoord_d      varchar(255) null,
+//     juiste_antwoord varchar(255) not null,
+//     constraint vraag_pk
+//         primary key (id)
+// );
+// INSERT INTO `vraag` (`id`, `naam`, `antwoord_a`, `antwoord_b`, `antwoord_c`, `antwoord_d`, `juiste_antwoord`) VALUES ('', 'vraag naam', 'antwoord a', 'antwoord b', 'antwoord c', 'antwoord d', 'antwoord hier');
 
 
 app.engine('html', require('ejs').renderFile);
@@ -104,6 +128,11 @@ app.get('/logout', (req, res) => {
 	res.clearCookie(process.env.JWT_NAME)
     res.redirect('/')
 });
+
+app.get('/game/:id', (req, res) => {
+	res.render('game.html')
+});
+
 
 app.get('/leaderboard', require('./middleware/jwt.middleware'), (req, res) => {
 	const username = req.userData.username
