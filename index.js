@@ -11,6 +11,8 @@ const User = require('./routes/user/user.model');
 const gameLibrary = require('./functions/game.function.js');
 const game = new gameLibrary();
 
+require('./mongo_mysql')
+// Backup vragen database to database.sql
 
 const WebSocket = require('ws')
 const port = 1000
