@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<%- include('header.html') %>
+	<title><%= process.env.SITE_NAME %> - Game</title>
+</head>
+
+<body>
+	<%- include('navbar.html') %>
+	<h1 style="color: white"><%= game.id %></h1>
+	<h1 style="color: white"><%= game.player1 %></h1>
+	<h1 style="color: white"><%= game.player2 %></h1>
+	<!-- players -->
+</body>
+</html>
+
+<!-- {
+	game: [
+	  {
+		id: '4ab832d4-29b1-493d-8582-a7efcdd315ca',
+		player1: 'testaccount',
+		player2: 'picocode'
+	  }
+	]
+  } -->

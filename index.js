@@ -11,8 +11,11 @@ const User = require('./routes/user/user.model');
 const gameLibrary = require('./functions/game.function.js');
 const game = new gameLibrary();
 
-require('./mongo_mysql')
+const { randomUUID } = require('crypto');
+
+
 // Backup vragen database to database.sql
+require('./mongo_mysql')
 
 const WebSocket = require('ws')
 const port = 1000
@@ -64,12 +67,21 @@ Server.on('connection', (ws, req) => {
 					});
 				}
 
-				// Check if the receiver accpected the challenge
-				if (json.newGame) {
-					// Server.clients.forEach(function each(client) {
-					// 	client.send(JSON.stringify({onlineUsers: array}));
-					// });
-					// console.log(json)
+				// Check if we have a game request
+				if (json.gameId != null) {
+					//
+				}
+
+				// Check if the receiver accepted the challenge
+				if (json.newGame != undefined) {
+					var gameId = randomUUID()
+					console.log('newGame', gameId)
+
+					game.startMemoryGame(json.newGame[0], json.newGame[1], gameId)
+
+					Server.clients.forEach(function each(client) {
+						client.send(JSON.stringify({gameId: gameId, players: json.newGame}));
+					});
 				}
 			}
 	
@@ -115,7 +127,22 @@ app.get('/logout', (req, res) => {
 });
 
 app.get('/game/:id', (req, res) => {
-	res.render('game.html')
+	// console.log(gameObject)
+	// check if the id matches to gameObject.gameId to our game
+
+	var found = false
+	gameObject.game.find(game => {
+		if (game.id == req.params.id) {
+			res.render('game.html', {
+				game: game,
+				admin: false,
+				username: 1
+			})
+			found = true
+		}
+	})
+	// If the game is not found, redirect to the dashboard
+	if (!found) res.redirect('/dashboard')
 });
 
 

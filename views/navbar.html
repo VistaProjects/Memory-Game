@@ -1,10 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-	<a class="p-3 navbar-brand fw-bold text-uppercase gloweffect" href="#" style="color: white; font-size: 200%;"><%= process.env.SITE_NAME %></a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
+	<a class="p-3 navbar-brand fw-bold text-uppercase gloweffect" href="/dashboard" style="color: white; font-size: 200%;"><%= process.env.SITE_NAME %></a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navtoggle" aria-controls="navtoggle" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
-	</button>
-	<div class="navbar-collapse collapse" id="collapsingNavbar">
-		<!-- Left side of navbar -->
+	  </button>
+	<div class="navbar-collapse collapse" id="navtoggle">
 		<ul class="navbar-nav">
 			<li class="nav-item active">
 				<a class="nav-link" href="/dashboard">Dashboard</a>
@@ -17,7 +16,9 @@
 			</li>
 		</ul>
 
-		<ul class="nav justify-content-center">
+		<!-- Show username -->
+
+		<!-- <ul class="nav justify-content-center">
 			<li class="nav-item">
 				<% if (admin) { %>
 					<pre class="fw-bold mb-0 text-uppercase btn-shine" style="text-shadow: 0 0 2.5px; color: rgb(21, 255, 0);">
@@ -29,7 +30,7 @@
 					</pre>
 				<% } %>
 			</li>
-		  </ul>
+		</ul> -->
 		
 		<!-- Right side of navbar -->
 		<ul class="nav navbar-nav ml-auto w-100 justify-content-end">
@@ -46,12 +47,7 @@
 				<a class="checkbox-text">Invite system</a>
 			</li>
 
-			<li class="nav-item active">
-				<a id="invite" class="nav-link" href="#">Generate invite</a>
-			</li>
-			<!-- <li class="nav-item">
-				<a class="nav-link" href="/admin" style="color: white">admin panel</a>
-			</li> -->
+			<li class="nav-item active" id="invite_generate"></li>
 		<% } %>
 		</ul>
 		
@@ -61,7 +57,7 @@
 
 <script>
 	const username = "<%= username %>"
-	const ws = new WebSocket('ws://localhost:1000?username=' + username)
+	const ws = new WebSocket('ws://192.168.178.206:1000?username=' + username)
 	
 	// Heartbeat
 	ws.onopen = (event) => {
@@ -73,13 +69,6 @@
 		}, 500)
 	};
 
-	array1 = [ 1, 2, 0]
-	array2 = [ 0, 1, 0]
-	array3 = [ 0, 0, 1]
-
-
-
-
 	ws.onmessage = (event) => {
 		var json = JSON.parse(event.data)
 		// console log URL
@@ -87,6 +76,17 @@
 
 		if (url == '/online') UpdateUsers(json)
 		
+		// console.log(json.newGame)
+		if (json.onlineUsers == undefined) {
+			console.log(json)
+		}
+		if (json.gameId != undefined) {
+			if (json.players.includes(username)) {
+				location.href = '/game/' + json.gameId
+			}
+			return
+		}
+
 		if (json.sender != null && json.receiver != null && json.receiver == username) {
 				bootbox.confirm(`${json.sender} challenged you, do you accept?`, function(result){ 
 				if (result) {
@@ -108,6 +108,9 @@
 			var INVITE_ONLY = JSON.parse('<%= process.env.INVITE_ONLY %>')
 			$('.form-check-input').prop('checked', JSON.parse(INVITE_ONLY));
 
+			if (INVITE_ONLY){
+				document.getElementById('invite_generate').innerHTML = '<a id="invite" class="nav-link" href="#">Generate invite</a>';
+			}
 			$('.form-check-input').click(function(){
 				// const env = require('../functions/env.function.js');
 				// env.update('INVITE_ONLY', 'false')
@@ -131,6 +134,10 @@
 									message: `${data.message}`,
 									size: 'large'
 								});
+								if (data.message.split(': ')[1] == "true") {
+									document.getElementById('invite_generate').innerHTML = '<a id="invite" class="nav-link" href="#">Generate invite</a>';
+								}
+								else document.getElementById('invite_generate').innerHTML = ''
 							}
 							else
 							{

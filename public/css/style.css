@@ -69,3 +69,33 @@ body {
 .user {
 	color: white
 }
+
+td>a {
+	position: relative;
+}
+
+td>a:hover::before {
+	font-weight: bold;
+	content: "Challenge";
+	position: absolute;
+	top: 0em;
+	right: -5.5em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 5%;
+	background: rgb(0, 94, 255);
+	color: white;
+}
+
+#leaderboard {
+	color: white;
+	font-size: 150%;
+}
+#leaderboard table, #leaderboard th, #leaderboard td {
+	border: 1px solid rgb(210, 210, 210);
+	border-collapse: collapse;
+	margin-left: auto; 
+	margin-right: auto;
+	text-align: center;
+}
