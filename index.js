@@ -63,7 +63,6 @@ Server.on('connection', (ws, req) => {
 			}
 			else
 			{
-				console.log(json)
 				// Check if we have a challenge request
 				if (json.sender != null) {
 					sendAll(JSON.stringify(json))
