@@ -12,7 +12,28 @@
 	<h1 style="color: white">Player 1: <%= game.player1 %></h1>
 	<h1 style="color: white">Player 2: <%= game.player2 %></h1>
 	<!-- players -->
+	<button id="button">Test</button>
+	<p id="counter" style="color: white">0</p>
 </body>
+<script>
+	var counter = 0;
+	// if you press button it will increment the counter
+
+	function increment(json) {
+		console.log(json)
+		if (json.data == 'button'){
+
+			counter++;
+			document.getElementById("counter").innerHTML = counter;
+		}
+	}
+	document.getElementById("button").addEventListener("click", function() {
+		ws.send(JSON.stringify({
+			data: "button",
+			id: "button"
+		}));
+	});
+</script>
 </html>
 
 <!-- {

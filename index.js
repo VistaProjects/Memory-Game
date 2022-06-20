@@ -71,8 +71,14 @@ Server.on('connection', (ws, req) => {
 
 				// Check if we have a game id
 				if (json.gameId != null) {
-					//
+					sendAll(json)
 				}
+				
+				// Check if a button is pressed
+				if (json.button != null) {
+					sendAll(json)
+				}
+				
 
 				// Check if the receiver accepted the challenge
 				if (json.newGame != undefined) {

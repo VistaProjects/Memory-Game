@@ -75,7 +75,10 @@
 		var url = new URL(location.href).pathname
 
 		if (url == '/online') UpdateUsers(json)
-		
+
+		if (url.slice(0,5) == '/game') increment(json)
+
+
 		// console.log(json.newGame)
 		if (json.onlineUsers == undefined) {
 			console.log(json)
