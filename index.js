@@ -32,7 +32,11 @@ const Server = new WebSocket.Server({port: port})
 // })
 
 
-
+const sendAll = message => {
+	Server.clients.forEach(function each(client) {
+		client.send(message);
+	});
+}
 
 
 
@@ -62,12 +66,10 @@ Server.on('connection', (ws, req) => {
 				console.log(json)
 				// Check if we have a challenge request
 				if (json.sender != null) {
-					Server.clients.forEach(function each(client) {
-						client.send(JSON.stringify(json));
-					});
+					sendAll(JSON.stringify(json))
 				}
 
-				// Check if we have a game request
+				// Check if we have a game id
 				if (json.gameId != null) {
 					//
 				}
@@ -79,9 +81,7 @@ Server.on('connection', (ws, req) => {
 
 					game.startMemoryGame(json.newGame[0], json.newGame[1], gameId)
 
-					Server.clients.forEach(function each(client) {
-						client.send(JSON.stringify({gameId: gameId, players: json.newGame}));
-					});
+					sendAll(JSON.stringify({gameId: gameId, players: json.newGame}))
 				}
 			}
 	
@@ -92,9 +92,9 @@ Server.on('connection', (ws, req) => {
 // Heartbeat 
 setInterval(() => {
 	let array = Array.from(onlineUsers).sort()
-	Server.clients.forEach(function each(client) {
-		client.send(JSON.stringify({onlineUsers: array}));
-	});
+
+	sendAll(JSON.stringify({onlineUsers: array}))
+
 	onlineUsers.clear()
 }, 1000)
 
