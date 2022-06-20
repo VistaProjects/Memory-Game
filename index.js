@@ -69,14 +69,10 @@ Server.on('connection', (ws, req) => {
 					sendAll(JSON.stringify(json))
 				}
 
-				// Check if we have a game id
-				if (json.gameId != null) {
-					sendAll(json)
-				}
-				
 				// Check if a button is pressed
-				if (json.button != null) {
-					sendAll(json)
+				if (json.game != null) {
+					console.log('json.game -> ', json)
+					sendAll(JSON.stringify(json))
 				}
 				
 

@@ -71,18 +71,25 @@
 
 	ws.onmessage = (event) => {
 		var json = JSON.parse(event.data)
+
+		if (json.heartbeat) {
+			return
+		}
+
 		// console log URL
 		var url = new URL(location.href).pathname
 
 		if (url == '/online') UpdateUsers(json)
 
-		if (url.slice(0,5) == '/game') increment(json)
+		if (url.slice(0,5) == '/game') GameMessage(json)
 
 
 		// console.log(json.newGame)
 		if (json.onlineUsers == undefined) {
 			console.log(json)
 		}
+
+		// Redirect the user if game is started
 		if (json.gameId != undefined) {
 			if (json.players.includes(username)) {
 				location.href = '/game/' + json.gameId

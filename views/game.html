@@ -9,30 +9,41 @@
 <body>
 	<%- include('navbar.html') %>
 	<h1 style="color: white">GameID: <%= game.id %></h1>
+	<h1 style="color: white">Random seed: <%= game.randomSeed %></h1>
 	<h1 style="color: white">Player 1: <%= game.player1 %></h1>
 	<h1 style="color: white">Player 2: <%= game.player2 %></h1>
 	<!-- players -->
-	<button id="button">Test</button>
-	<p id="counter" style="color: white">0</p>
+	<button id="flip">Flip card</button>
 </body>
 <script>
-	var counter = 0;
-	// if you press button it will increment the counter
+	const gameid = "<%= game.id %>" // id of the current game
+	const randomSeed = "<%= game.randomSeed %>" //random seed from the server
+	const player1 = "<%= game.player1 %>"
+	const player2 = "<%= game.player2 %>"
+	const username = "<%= username %>" // logged in username
 
-	function increment(json) {
+	const GameMessage = json => {
+		if (json.onlineUsers != null) return
 		console.log(json)
-		if (json.data == 'button'){
 
-			counter++;
-			document.getElementById("counter").innerHTML = counter;
+		if (json.game.flipCard != null) {
+			flipCard(json.game.flipCard)
 		}
 	}
-	document.getElementById("button").addEventListener("click", function() {
+
+	document.getElementById("flip").addEventListener("click", function() {
 		ws.send(JSON.stringify({
-			data: "button",
-			id: "button"
+			game: {
+				id: gameid,
+				flipCard: Math.random()
+			}
 		}));
 	});
+
+	function flipCard(id) {
+		console.log(id)
+	}
+
 </script>
 </html>
 

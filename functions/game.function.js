@@ -24,7 +24,7 @@ class game {
 			return
 		}
 
-		gameObject.game.push({id: gameId, player1: user1, player2: user2})
+		gameObject.game.push({id: gameId, player1: user1, player2: user2, randomSeed: Math.random()})
 		// console.log(`Starting memory game between ${user1} and ${user2}, gameid: ${gameId}`)
 		console.log('GAME HAS BEEN STARTED:', gameObject)
 	}
