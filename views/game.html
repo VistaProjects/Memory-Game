@@ -143,6 +143,9 @@
 	const GameMessage = json => {
 		// if (json.onlineUsers != null) return
 		// console.log(json)
+		if (json.gameid != gameid) return
+
+
 		if (json.game == 'flipCard') {
 			flipCard(json.card)
 		}
@@ -152,9 +155,31 @@
 	const send = card => {
 		ws.send(JSON.stringify({
 			game: 'flipCard',
-			card: card
+			card: card,
+			gameid: gameid,
 		}))
 	}
+
+
+	const http = new XMLHttpRequest();
+
+	async function randomQuestion() { // (1)
+		let res = await fetch('/online'); // (2)
+
+		if (res.status == 200) {
+			// let json = await res.json(); // (3)
+			return res
+		}
+
+		throw new Error(res.status);
+	}
+
+
+	randomQuestion().then(data => {
+		console.log(data.body)
+	})
+
+
 
 	var ul = document.getElementById('grid');
 	for (var i = ul.children.length; i >= 0; i--) {
@@ -188,25 +213,28 @@
 					message: '<p>voer choice 2 in:</p>',
 					inputType: 'radio',
 					inputOptions: [{
-							text: 'Choice One',
+							text: 'One',
 							value: '1',
 						},
 						{
-							text: 'Choice Two',
+							text: 'Two',
 							value: '2',
 						},
 						{
-							text: 'Choice Three',
+							text: 'Three',
 							value: '3',
+						},
+						{
+							text: 'Four',
+							value: '4',
 						}
 					],
 					callback: function (result) {
 						console.log('a', temparray)
-						if (result != correct){
-							setTimeout(()=> {
+						if (result != correct) {
+							setTimeout(() => {
 								unflip(temparray)
 								// bootbox.alert({ message: "Verkeerd antwoord", size: 'small' });
-								// alert("Verkeerd antwoord")
 							}, 500)
 						}
 					}
@@ -214,10 +242,7 @@
 			} else {
 				console.log(currentUp)
 				setTimeout(() => {
-					document.getElementById(currentUp[0]).className = 'hidden';
-					console.log(currentUp)
-
-					document.getElementById(currentUp[1]).className = 'hidden';
+					unflip(currentUp)
 				}, 500)
 			}
 			setTimeout(() => {

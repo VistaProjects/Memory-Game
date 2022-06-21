@@ -12,3 +12,9 @@ create table vraag
 );
 INSERT INTO `vraag` (`id`, `naam`, `antwoord_a`, `antwoord_b`, `antwoord_c`, `antwoord_d`, `juiste_antwoord`) VALUES ('', 'Vraag 1', 'test A', 'test B', 'test C', 'test D', 'test B');
 INSERT INTO `vraag` (`id`, `naam`, `antwoord_a`, `antwoord_b`, `antwoord_c`, `antwoord_d`, `juiste_antwoord`) VALUES ('', 'Vraag 2', 'test A', 'test B', 'test C', 'test D', 'test A');
+INSERT INTO `vraag` (`id`, `naam`, `antwoord_a`, `antwoord_b`, `antwoord_c`, `antwoord_d`, `juiste_antwoord`) VALUES ('', 'Vraag 2', 'test A', 'test B', 'test C', 'test D', 'test yeet');
+INSERT INTO `vraag` (`id`, `naam`, `antwoord_a`, `antwoord_b`, `antwoord_c`, `antwoord_d`, `juiste_antwoord`) VALUES ('', 'Vraag 2', 'test A', 'test B', 'test C', 'test D', 'test vraag');
+INSERT INTO `vraag` (`id`, `naam`, `antwoord_a`, `antwoord_b`, `antwoord_c`, `antwoord_d`, `juiste_antwoord`) VALUES ('', 'Vraag 1', 'test A', 'test B', 'test C', 'test D', 'test B');
+INSERT INTO `vraag` (`id`, `naam`, `antwoord_a`, `antwoord_b`, `antwoord_c`, `antwoord_d`, `juiste_antwoord`) VALUES ('', 'Vraag 2', 'test A', 'test B', 'test C', 'test D', 'test A');
+INSERT INTO `vraag` (`id`, `naam`, `antwoord_a`, `antwoord_b`, `antwoord_c`, `antwoord_d`, `juiste_antwoord`) VALUES ('', 'Vraag 2', 'test A', 'test B', 'test C', 'test D', 'test yeet');
+INSERT INTO `vraag` (`id`, `naam`, `antwoord_a`, `antwoord_b`, `antwoord_c`, `antwoord_d`, `juiste_antwoord`) VALUES ('', 'Vraag 2', 'test A', 'test B', 'test C', 'test D', 'test vraag');
