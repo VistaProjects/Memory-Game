@@ -14,6 +14,7 @@ gameObject = {
 		// 	player1: 'name2',
 		// 	playerScore1: 0,
 		// 	playerScore2: 0,
+		// 	correct: [],
 		// },
 	]
 }
@@ -26,7 +27,7 @@ class game {
 			return
 		}
 
-		gameObject.game.push({id: gameId, player1: user1, player2: user2, randomSeed: Math.random(), playerScore1: 0, playerScore2: 0})
+		gameObject.game.push({id: gameId, player1: user1, player2: user2, randomSeed: Math.random(), playerScore1: 0, playerScore2: 0, correct: []})
 		// console.log(`Starting memory game between ${user1} and ${user2}, gameid: ${gameId}`)
 		console.log('GAME HAS BEEN STARTED:', gameObject)
 	}

@@ -5,8 +5,7 @@
 	<%- include('header.html') %>
 	<title><%= process.env.SITE_NAME %> - Game</title>
 	<style>
-		* {
-			background-color: rgb(45, 45, 45);
+		#test {
 			color: rgb(220, 220, 220);
 		}
 
@@ -51,6 +50,7 @@
 		<h6 style="color: white">Random seed: <%= game.randomSeed %></h6>
 		<h6 style="color: white">Player 1: <%= game.player1 %></h6>
 		<h6 style="color: white">Player 2: <%= game.player2 %></h6>
+		<h6 style="color: white">Username: <%= username %></h6>
 		<h1>Score:</h1>
 		<h1 id="score">0</h1>
 	</div>
@@ -147,7 +147,11 @@
 
 
 		if (json.game == 'flipCard') {
-			flipCard(json.card)
+			flipCard(json.card, json.sender)
+		}
+		if (json.game == 'unflipCard') {
+			console.log(json)
+			unflip(json.card, json.sender)
 		}
 	}
 
@@ -157,6 +161,16 @@
 			game: 'flipCard',
 			card: card,
 			gameid: gameid,
+			sender: username
+		}))
+	}
+
+	const unflipRequest = card => {
+		ws.send(JSON.stringify({
+			game: 'unflipCard',
+			card: card,
+			gameid: gameid,
+			sender: username
 		}))
 	}
 
@@ -164,21 +178,15 @@
 	const http = new XMLHttpRequest();
 
 	async function randomQuestion() { // (1)
-		let res = await fetch('/online'); // (2)
+		let res = await fetch('/getquestion'); // (2)
 
 		if (res.status == 200) {
-			// let json = await res.json(); // (3)
-			return res
+			let json = await res.json(); // (3)
+			return json
 		}
 
 		throw new Error(res.status);
 	}
-
-
-	randomQuestion().then(data => {
-		console.log(data.body)
-	})
-
 
 
 	var ul = document.getElementById('grid');
@@ -192,7 +200,7 @@
 	var currentCells = []
 	var currentUp = []
 
-	function flipCard(cell) {
+	function flipCard(cell, sender) {
 		if (document.getElementById(cell).className == '') return
 
 		let cellid = cell.slice(0, cell.length - 1).toUpperCase()
@@ -206,43 +214,65 @@
 			var temparray = currentUp
 			if (currentCells[0] == currentCells[1]) {
 				console.log('zelfe kaart')
-				var correct = '2'
 
-				bootbox.prompt({
-					title: "Goed, beantwoord de vraag:",
-					message: '<p>voer choice 2 in:</p>',
-					inputType: 'radio',
-					inputOptions: [{
-							text: 'One',
-							value: '1',
-						},
-						{
-							text: 'Two',
-							value: '2',
-						},
-						{
-							text: 'Three',
-							value: '3',
-						},
-						{
-							text: 'Four',
-							value: '4',
+				ws.send(JSON.stringify({
+					gameid: gameid,
+					correct: currentCells
+				}))
+				if (username == sender){
+					randomQuestion().then(data => {
+					var correct = data.juiste_antwoord
+					console.log('Correct: ' + correct)
+
+					bootbox.prompt({
+						title: "Goed, beantwoord de vraag:",
+						message: `<p>${data.naam}:</p>`,
+						inputType: 'radio',
+						inputOptions: [{
+								text: data.antwoord_a,
+								value: data.antwoord_a,
+							},
+							{
+								text: data.antwoord_b,
+								value: data.antwoord_b,
+							},
+							{
+								text: data.antwoord_c,
+								value: data.antwoord_c,
+							},
+							{
+								text: data.antwoord_d,
+								value: data.antwoord_d,
+							}
+						],
+						callback: function (result) {
+							if (result != correct) {
+								setTimeout(() => {
+									unflipRequest(temparray)
+									unflip(temparray)
+									// bootbox.alert({ message: "Verkeerd antwoord", size: 'small' });
+								}, 500)
+							}
+							else 
+							{
+								var score = document.getElementById('score');
+								score.innerHTML = parseInt(score.innerHTML) + 1;
+								if (parseInt(score.innerHTML) > 9){
+									bootbox.alert({ message: "Gefeliciteerd, je hebt gewonnen!", size: 'small', callback: function(result) {
+										location.href = '/'
+									}});
+								}
+							}
 						}
-					],
-					callback: function (result) {
-						console.log('a', temparray)
-						if (result != correct) {
-							setTimeout(() => {
-								unflip(temparray)
-								// bootbox.alert({ message: "Verkeerd antwoord", size: 'small' });
-							}, 500)
-						}
-					}
-				});
+					});
+				})
+				}
+
 			} else {
 				console.log(currentUp)
 				setTimeout(() => {
-					unflip(currentUp)
+					unflipRequest(currentUp)
+					// unflip(currentUp)
 				}, 500)
 			}
 			setTimeout(() => {
@@ -261,13 +291,16 @@
 </script>
 
 </html>
-
 <!-- {
 	game: [
 	  {
-		id: '4ab832d4-29b1-493d-8582-a7efcdd315ca',
+		id: '41b3ae82-878e-493e-a265-de6d61c7f97f',
 		player1: 'testaccount',
-		player2: 'picocode'
+		player2: 'picocode',
+		randomSeed: 0.10636136894603965,
+		playerScore1: 0,
+		playerScore2: 0,
+		correct: []
 	  }
 	]
   } -->

@@ -75,6 +75,20 @@ Server.on('connection', (ws, req) => {
 					sendAll(JSON.stringify(json))
 				}
 				
+				if (json.correct != null) {
+					console.log(gameObject)
+					
+					
+					gameObject.game.find(game => {
+						if (game.id == json.gameid) {
+							gameObject.game.correct.push(json.currentCells[0], json.currentCells[1])
+						}
+					})
+					console.log(gameObject)
+					// sendAll(JSON.stringify(json))
+				}
+
+				
 
 				// Check if the receiver accepted the challenge
 				if (json.newGame != undefined) {
@@ -128,9 +142,11 @@ app.get('/logout', (req, res) => {
     res.redirect('/')
 });
 
-app.get('/game/:id', (req, res) => {
+app.get('/game/:id', require('./middleware/jwt.middleware'), (req, res) => {
 	// console.log(gameObject)
 	// check if the id matches to gameObject.gameId to our game
+
+	const username = req.userData.username
 
 	var found = false
 	gameObject.game.find(game => {
@@ -138,13 +154,14 @@ app.get('/game/:id', (req, res) => {
 			res.render('game.html', {
 				game: game,
 				admin: false,
-				username: 1
+				username: username
 			})
 			found = true
 		}
 	})
 	// If the game is not found, redirect to the dashboard
 	if (!found) res.redirect('/dashboard')
+
 });
 
 
@@ -208,10 +225,6 @@ var userSchema = new mongoose.Schema({
   
   
 var vragen = mongoose.model('vragen',userSchema);
-
-function getRandomInt(max) {
-	return Math.floor(Math.random() * max);
-}
 
 app.get('/getquestion', (req, res) => {
 	vragen.find({}).then(vraag => {
