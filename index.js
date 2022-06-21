@@ -15,9 +15,10 @@ const { randomUUID } = require('crypto');
 
 
 // Backup vragen database to database.sql
-require('./mongo_mysql')
+// require('./mongo_mysql')
 
-const WebSocket = require('ws')
+const WebSocket = require('ws');
+const { stringify } = require('querystring');
 const port = 1000
 const Server = new WebSocket.Server({port: port})
 
@@ -200,6 +201,24 @@ app.get('/dashboard', require('./middleware/jwt.middleware'), (req, res) => {
 		});
 	})
 });
+
+var userSchema = new mongoose.Schema({
+    naam: {type: String},
+}, {collection: 'vragen'});
+  
+  
+var vragen = mongoose.model('vragen',userSchema);
+
+function getRandomInt(max) {
+	return Math.floor(Math.random() * max);
+}
+
+app.get('/getquestion', (req, res) => {
+	vragen.find({}).then(vraag => {
+		let random = Math.floor(Math.random() * vraag.length)
+		res.send(vraag[random])
+	})
+})
 
 fs.readdirSync('./routes').forEach(file => {
     app.use(`/${file}/`, require(`./routes/${file}/${file}.controller`));
