@@ -19,7 +19,7 @@ const { randomUUID } = require('crypto');
 
 const WebSocket = require('ws');
 const { stringify } = require('querystring');
-const port = 1000
+const port = 1337
 const Server = new WebSocket.Server({port: port})
 
 
@@ -54,8 +54,6 @@ Server.on('connection', (ws, req) => {
 	ws.on('message', function incoming(received_data) {
 		var data = String(received_data)
 
-		// var user = req.url.split("=")[1]
-		// console.log(user)
 		try {
 			var json = JSON.parse(data)
 	
@@ -68,25 +66,39 @@ Server.on('connection', (ws, req) => {
 				if (json.sender != null) {
 					sendAll(JSON.stringify(json))
 				}
+				
+				if (json.game == 'win') {
+					// console.log('json.game -> ', json)
+					game.addWin(json.winner)
+					game.addLoss(json.loser)
+
+					sendAll(JSON.stringify({
+						game: 'gg',
+						winner: json.winner,
+						loser: json.loser,
+						gameId: json.gameId,
+					}))
+				}
+				
 
 				// Check if a button is pressed
 				if (json.game != null) {
-					console.log('json.game -> ', json)
+					// console.log('json.game -> ', json)
 					sendAll(JSON.stringify(json))
 				}
 				
-				if (json.correct != null) {
-					console.log(gameObject)
-					
-					
-					gameObject.game.find(game => {
-						if (game.id == json.gameid) {
-							gameObject.game.correct.push(json.currentCells[0], json.currentCells[1])
-						}
-					})
-					console.log(gameObject)
-					// sendAll(JSON.stringify(json))
-				}
+				//if (json.correct != null) {
+				//	console.log(gameObject)
+				//	
+				//	
+				//	gameObject.game.find(game => {
+				//		if (game.id == json.gameid) {
+				//			gameObject.game.correct.push(json.currentCells[0], json.currentCells[1])
+				//		}
+				//	})
+				//	console.log(gameObject)
+				//	// sendAll(JSON.stringify(json))
+				//}
 
 				
 

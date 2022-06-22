@@ -57,7 +57,7 @@
 
 <script>
 	const username = "<%= username %>"
-	const ws = new WebSocket('ws://localhost:1000?username=' + username)
+	const ws = new WebSocket('ws://localhost:1337?username=' + username)
 	
 	// Heartbeat
 	ws.onopen = (event) => {

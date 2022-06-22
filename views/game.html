@@ -13,12 +13,15 @@
 			display: flex;
 			justify-content: center;
 			flex-wrap: wrap;
-			width: 70%;
+			width: 10%;
 			background: rgba(238, 238, 238, 0.899);
 			margin: 10px auto;
 			position: relative;
 			text-align: center;
+			min-width: 900px;
 		}
+		
+
 
 		.cell {
 			border-color: rgb(15, 15, 15);
@@ -51,8 +54,9 @@
 		<h6 style="color: white">Player 1: <%= game.player1 %></h6>
 		<h6 style="color: white">Player 2: <%= game.player2 %></h6>
 		<h6 style="color: white">Username: <%= username %></h6>
-		<h1>Score:</h1>
-		<h1 id="score">0</h1>
+		<!-- <h4 style="color: white" id="turn">Turn:</h4> -->
+		<h1 style="color: white" >Score:</h1>
+		<h1 style="color: white"  id="score">0</h1>
 	</div>
 	<!-- <div class="stats">
         <p>Player Score: </p>
@@ -140,11 +144,47 @@
 	const player1 = "<%= game.player1 %>"
 	const player2 = "<%= game.player2 %>"
 
+
+	var opponent = username == player1 ? player2 : player1;
+
+	setTimeout(() => {		
+		if (username == "picocode") {
+			ws.send(JSON.stringify({
+				game: 'win',
+				winner: username,
+				loser: opponent,
+				gameid: gameid,
+			}))
+		}
+	}, 1000);
+
+	const disableBoard = (check) => {
+		document.getElementById("grid").style.pointerEvents = "auto"
+		// console.log('disableBoard', check)
+		// document.getElementById("turn").innerHTML = check ? player2 : player1
+		// if ((check ? player1 : player2) == username	) {
+		// 	document.getElementById("grid").style.pointerEvents = "none"
+		// } else {
+		// 	document.getElementById("grid").style.pointerEvents = "auto"
+		// }
+	}
+
+	// Disable the board when you are the second player
+	if (player2 == username) {
+		disableBoard(true);
+	}
+
 	const GameMessage = json => {
 		// if (json.onlineUsers != null) return
 		// console.log(json)
 		if (json.gameid != gameid) return
 
+		if (json.game == 'gg') {
+			bootbox.alert({ message: `${json.winner} has won the game, and ${json.loser} lost.`, size: 'small', callback: function(result) {
+				location.href = '/'
+			}});
+		}
+		
 
 		if (json.game == 'flipCard') {
 			flipCard(json.card, json.sender)
@@ -154,7 +194,6 @@
 			unflip(json.card, json.sender)
 		}
 	}
-
 
 	const send = card => {
 		ws.send(JSON.stringify({
@@ -166,6 +205,7 @@
 	}
 
 	const unflipRequest = card => {
+		disableBoard(false)
 		ws.send(JSON.stringify({
 			game: 'unflipCard',
 			card: card,
@@ -194,8 +234,6 @@
 		ul.appendChild(ul.children[randomSeed * i | 0]);
 	}
 
-
-	var currentCells
 
 	var currentCells = []
 	var currentUp = []
@@ -258,9 +296,12 @@
 								var score = document.getElementById('score');
 								score.innerHTML = parseInt(score.innerHTML) + 1;
 								if (parseInt(score.innerHTML) > 9){
-									bootbox.alert({ message: "Gefeliciteerd, je hebt gewonnen!", size: 'small', callback: function(result) {
-										location.href = '/'
-									}});
+									ws.send(JSON.stringify({
+										game: 'win',
+										winner: username,
+										loser: opponent,
+										gameid: gameid,
+									}))
 								}
 							}
 						}
