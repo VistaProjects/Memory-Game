@@ -58,84 +58,44 @@
 		<h1 style="color: white" >Score:</h1>
 		<h1 style="color: white"  id="score">0</h1>
 	</div>
-	<!-- <div class="stats">
-        <p>Player Score: </p>
-        <div class="score" id="score">0</div>
-    </div> -->
 	<hr>
 	<div class="grid" id="grid">
-		<div onclick="send('a1')" event.stopPropagation; class="cell" id="A"><img id="a1" class="hidden"
-				src="/img/a.jpg" width="70" height="100"></div>
-		<div onclick="send('a2')" event.stopPropagation; class="cell" id="A"><img id="a2" class="hidden"
-				src="/img/a.jpg" width="70" height="100"></div>
-		<div onclick="send('b1')" event.stopPropagation; class="cell" id="B"><img id="b1" class="hidden"
-				src="/img/b.jpg" width="70" height="100"></div>
-		<div onclick="send('b2')" event.stopPropagation; class="cell" id="B"><img id="b2" class="hidden"
-				src="/img/b.jpg" width="70" height="100"></div>
-		<div onclick="send('c1')" event.stopPropagation; class="cell" id="C"><img id="c1" class="hidden"
-				src="/img/c.jpg" width="70" height="100"></div>
-		<div onclick="send('c2')" event.stopPropagation; class="cell" id="C"><img id="c2" class="hidden"
-				src="/img/c.jpg" width="70" height="100"></div>
-		<div onclick="send('d1')" event.stopPropagation; class="cell" id="D"><img id="d1" class="hidden"
-				src="/img/d.jpg" width="70" height="100"></div>
-		<div onclick="send('d2')" event.stopPropagation; class="cell" id="D"><img id="d2" class="hidden"
-				src="/img/d.jpg" width="70" height="100"></div>
-		<div onclick="send('e1')" event.stopPropagation; class="cell" id="E"><img id="e1" class="hidden"
-				src="/img/e.jpg" width="70" height="100"></div>
-		<div onclick="send('e2')" event.stopPropagation; class="cell" id="E"><img id="e2" class="hidden"
-				src="/img/e.jpg" width="70" height="100"></div>
-		<div onclick="send('f1')" event.stopPropagation; class="cell" id="F"><img id="f1" class="hidden"
-				src="/img/f.jpg" width="70" height="100"></div>
-		<div onclick="send('f2')" event.stopPropagation; class="cell" id="F"><img id="f2" class="hidden"
-				src="/img/f.jpg" width="70" height="100"></div>
-		<div onclick="send('g1')" event.stopPropagation; class="cell" id="G"><img id="g1" class="hidden"
-				src="/img/g.jpg" width="70" height="100"></div>
-		<div onclick="send('g2')" event.stopPropagation; class="cell" id="G"><img id="g2" class="hidden"
-				src="/img/g.jpg" width="70" height="100"></div>
-		<div onclick="send('h1')" event.stopPropagation; class="cell" id="H"><img id="h1" class="hidden"
-				src="/img/h.jpg" width="70" height="100"></div>
-		<div onclick="send('h2')" event.stopPropagation; class="cell" id="H"><img id="h2" class="hidden"
-				src="/img/h.jpg" width="70" height="100"></div>
-		<div onclick="send('i1')" event.stopPropagation; class="cell" id="I"><img id="i1" class="hidden"
-				src="/img/i.jpg" width="70" height="100"></div>
-		<div onclick="send('i2')" event.stopPropagation; class="cell" id="I"><img id="i2" class="hidden"
-				src="/img/i.jpg" width="70" height="100"></div>
-		<div onclick="send('j1')" event.stopPropagation; class="cell" id="J"><img id="j1" class="hidden"
-				src="/img/j.jpg" width="70" height="100"></div>
-		<div onclick="send('j2')" event.stopPropagation; class="cell" id="J"><img id="j2" class="hidden"
-				src="/img/j.jpg" width="70" height="100"></div>
-		<div onclick="send('k1')" event.stopPropagation; class="cell" id="K"><img id="k1" class="hidden"
-				src="/img/k.jpg" width="70" height="100"></div>
-		<div onclick="send('k2')" event.stopPropagation; class="cell" id="K"><img id="k2" class="hidden"
-				src="/img/k.jpg" width="70" height="100"></div>
-		<div onclick="send('l1')" event.stopPropagation; class="cell" id="L"><img id="l1" class="hidden"
-				src="/img/l.jpg" width="70" height="100"></div>
-		<div onclick="send('l2')" event.stopPropagation; class="cell" id="L"><img id="l2" class="hidden"
-				src="/img/l.jpg" width="70" height="100"></div>
-		<div onclick="send('m1')" event.stopPropagation; class="cell" id="M"><img id="m1" class="hidden"
-				src="/img/m.jpg" width="70" height="100"></div>
-		<div onclick="send('m2')" event.stopPropagation; class="cell" id="M"><img id="m2" class="hidden"
-				src="/img/m.jpg" width="70" height="100"></div>
-		<div onclick="send('n1')" event.stopPropagation; class="cell" id="N"><img id="n1" class="hidden"
-				src="/img/n.jpg" width="70" height="100"></div>
-		<div onclick="send('n2')" event.stopPropagation; class="cell" id="N"><img id="n2" class="hidden"
-				src="/img/n.jpg" width="70" height="100"></div>
-		<div onclick="send('o1')" event.stopPropagation; class="cell" id="O"><img id="o1" class="hidden"
-				src="/img/o.jpg" width="70" height="100"></div>
-		<div onclick="send('o2')" event.stopPropagation; class="cell" id="O"><img id="o2" class="hidden"
-				src="/img/o.jpg" width="70" height="100"></div>
-		<div onclick="send('p1')" event.stopPropagation; class="cell" id="P"><img id="p1" class="hidden"
-				src="/img/p.jpg" width="70" height="100"></div>
-		<div onclick="send('p2')" event.stopPropagation; class="cell" id="P"><img id="p2" class="hidden"
-				src="/img/p.jpg" width="70" height="100"></div>
-		<div onclick="send('q1')" event.stopPropagation; class="cell" id="Q"><img id="q1" class="hidden"
-				src="/img/q.jpg" width="70" height="100"></div>
-		<div onclick="send('q2')" event.stopPropagation; class="cell" id="Q"><img id="q2" class="hidden"
-				src="/img/q.jpg" width="70" height="100"></div>
-		<div onclick="send('r1')" event.stopPropagation; class="cell" id="R"><img id="r1" class="hidden"
-				src="/img/r.jpg" width="70" height="100"></div>
-		<div onclick="send('r2')" event.stopPropagation; class="cell" id="R"><img id="r2" class="hidden"
-				src="/img/r.jpg" width="70" height="100"></div>
+		<div onclick="send('a1')" event.stopPropagation; class="cell" id="A"><img id="a1" class="hidden" src="/img/a.jpg" width="70" height="100"></div>
+		<div onclick="send('a2')" event.stopPropagation; class="cell" id="A"><img id="a2" class="hidden" src="/img/a.jpg" width="70" height="100"></div>
+		<div onclick="send('b1')" event.stopPropagation; class="cell" id="B"><img id="b1" class="hidden" src="/img/b.jpg" width="70" height="100"></div>
+		<div onclick="send('b2')" event.stopPropagation; class="cell" id="B"><img id="b2" class="hidden" src="/img/b.jpg" width="70" height="100"></div>
+		<div onclick="send('c1')" event.stopPropagation; class="cell" id="C"><img id="c1" class="hidden" src="/img/c.jpg" width="70" height="100"></div>
+		<div onclick="send('c2')" event.stopPropagation; class="cell" id="C"><img id="c2" class="hidden" src="/img/c.jpg" width="70" height="100"></div>
+		<div onclick="send('d1')" event.stopPropagation; class="cell" id="D"><img id="d1" class="hidden" src="/img/d.jpg" width="70" height="100"></div>
+		<div onclick="send('d2')" event.stopPropagation; class="cell" id="D"><img id="d2" class="hidden" src="/img/d.jpg" width="70" height="100"></div>
+		<div onclick="send('e1')" event.stopPropagation; class="cell" id="E"><img id="e1" class="hidden" src="/img/e.jpg" width="70" height="100"></div>
+		<div onclick="send('e2')" event.stopPropagation; class="cell" id="E"><img id="e2" class="hidden" src="/img/e.jpg" width="70" height="100"></div>
+		<div onclick="send('f1')" event.stopPropagation; class="cell" id="F"><img id="f1" class="hidden" src="/img/f.jpg" width="70" height="100"></div>
+		<div onclick="send('f2')" event.stopPropagation; class="cell" id="F"><img id="f2" class="hidden" src="/img/f.jpg" width="70" height="100"></div>
+		<div onclick="send('g1')" event.stopPropagation; class="cell" id="G"><img id="g1" class="hidden" src="/img/g.jpg" width="70" height="100"></div>
+		<div onclick="send('g2')" event.stopPropagation; class="cell" id="G"><img id="g2" class="hidden" src="/img/g.jpg" width="70" height="100"></div>
+		<div onclick="send('h1')" event.stopPropagation; class="cell" id="H"><img id="h1" class="hidden" src="/img/h.jpg" width="70" height="100"></div>
+		<div onclick="send('h2')" event.stopPropagation; class="cell" id="H"><img id="h2" class="hidden" src="/img/h.jpg" width="70" height="100"></div>
+		<div onclick="send('i1')" event.stopPropagation; class="cell" id="I"><img id="i1" class="hidden" src="/img/i.jpg" width="70" height="100"></div>
+		<div onclick="send('i2')" event.stopPropagation; class="cell" id="I"><img id="i2" class="hidden" src="/img/i.jpg" width="70" height="100"></div>
+		<div onclick="send('j1')" event.stopPropagation; class="cell" id="J"><img id="j1" class="hidden" src="/img/j.jpg" width="70" height="100"></div>
+		<div onclick="send('j2')" event.stopPropagation; class="cell" id="J"><img id="j2" class="hidden" src="/img/j.jpg" width="70" height="100"></div>
+		<div onclick="send('k1')" event.stopPropagation; class="cell" id="K"><img id="k1" class="hidden" src="/img/k.jpg" width="70" height="100"></div>
+		<div onclick="send('k2')" event.stopPropagation; class="cell" id="K"><img id="k2" class="hidden" src="/img/k.jpg" width="70" height="100"></div>
+		<div onclick="send('l1')" event.stopPropagation; class="cell" id="L"><img id="l1" class="hidden" src="/img/l.jpg" width="70" height="100"></div>
+		<div onclick="send('l2')" event.stopPropagation; class="cell" id="L"><img id="l2" class="hidden" src="/img/l.jpg" width="70" height="100"></div>
+		<div onclick="send('m1')" event.stopPropagation; class="cell" id="M"><img id="m1" class="hidden" src="/img/m.jpg" width="70" height="100"></div>
+		<div onclick="send('m2')" event.stopPropagation; class="cell" id="M"><img id="m2" class="hidden" src="/img/m.jpg" width="70" height="100"></div>
+		<div onclick="send('n1')" event.stopPropagation; class="cell" id="N"><img id="n1" class="hidden" src="/img/n.jpg" width="70" height="100"></div>
+		<div onclick="send('n2')" event.stopPropagation; class="cell" id="N"><img id="n2" class="hidden" src="/img/n.jpg" width="70" height="100"></div>
+		<div onclick="send('o1')" event.stopPropagation; class="cell" id="O"><img id="o1" class="hidden" src="/img/o.jpg" width="70" height="100"></div>
+		<div onclick="send('o2')" event.stopPropagation; class="cell" id="O"><img id="o2" class="hidden" src="/img/o.jpg" width="70" height="100"></div>
+		<div onclick="send('p1')" event.stopPropagation; class="cell" id="P"><img id="p1" class="hidden" src="/img/p.jpg" width="70" height="100"></div>
+		<div onclick="send('p2')" event.stopPropagation; class="cell" id="P"><img id="p2" class="hidden" src="/img/p.jpg" width="70" height="100"></div>
+		<div onclick="send('q1')" event.stopPropagation; class="cell" id="Q"><img id="q1" class="hidden" src="/img/q.jpg" width="70" height="100"></div>
+		<div onclick="send('q2')" event.stopPropagation; class="cell" id="Q"><img id="q2" class="hidden" src="/img/q.jpg" width="70" height="100"></div>
+		<div onclick="send('r1')" event.stopPropagation; class="cell" id="R"><img id="r1" class="hidden" src="/img/r.jpg" width="70" height="100"></div>
+	    <div onclick="send('r2')" event.stopPropagation; class="cell" id="R"><img id="r2" class="hidden" src="/img/r.jpg" width="70" height="100"></div>
 	</div>
 </body>
 <script>
@@ -146,17 +106,6 @@
 
 
 	var opponent = username == player1 ? player2 : player1;
-
-	setTimeout(() => {		
-		if (username == "picocode") {
-			ws.send(JSON.stringify({
-				game: 'win',
-				winner: username,
-				loser: opponent,
-				gameid: gameid,
-			}))
-		}
-	}, 1000);
 
 	const disableBoard = (check) => {
 		document.getElementById("grid").style.pointerEvents = "auto"
@@ -179,7 +128,8 @@
 		// console.log(json)
 		if (json.gameid != gameid) return
 
-		if (json.game == 'gg') {
+		if (json.game == 'gg' || json.game == 'win') {
+			console.log('game has been finished', json.game)
 			bootbox.alert({ message: `${json.winner} has won the game, and ${json.loser} lost.`, size: 'small', callback: function(result) {
 				location.href = '/'
 			}});
@@ -190,7 +140,7 @@
 			flipCard(json.card, json.sender)
 		}
 		if (json.game == 'unflipCard') {
-			console.log(json)
+			// console.log(json)
 			unflip(json.card, json.sender)
 		}
 	}
@@ -251,7 +201,7 @@
 		if (currentCells.length == 2) {
 			var temparray = currentUp
 			if (currentCells[0] == currentCells[1]) {
-				console.log('zelfe kaart')
+				// console.log('zelfe kaart')
 
 				ws.send(JSON.stringify({
 					gameid: gameid,
@@ -285,7 +235,7 @@
 						],
 						callback: function (result) {
 							if (result != correct) {
-								setTimeout(() => {
+				setTimeout(() => {
 									unflipRequest(temparray)
 									unflip(temparray)
 									// bootbox.alert({ message: "Verkeerd antwoord", size: 'small' });
@@ -294,7 +244,7 @@
 							else 
 							{
 								var score = document.getElementById('score');
-								score.innerHTML = parseInt(score.innerHTML) + 1;
+				score.innerHTML = parseInt(score.innerHTML) + 1;
 								if (parseInt(score.innerHTML) > 9){
 									ws.send(JSON.stringify({
 										game: 'win',
@@ -310,8 +260,8 @@
 				}
 
 			} else {
-				console.log(currentUp)
-				setTimeout(() => {
+				// console.log(currentUp)
+setTimeout(() => {
 					unflipRequest(currentUp)
 					// unflip(currentUp)
 				}, 500)

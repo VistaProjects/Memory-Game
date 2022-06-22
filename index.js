@@ -222,12 +222,14 @@ app.get('/dashboard', require('./middleware/jwt.middleware'), (req, res) => {
 			res.render('banned.html',  { username: username });
 			return
 		}
-
-		res.render('dashboard.html',  {
-			username: username,
-			admin: json.group == 2,
-			invite_system: process.env.INVITE_ONLY
-		});
+		game.getRank(username).then(result => {
+			res.render('dashboard.html',  {
+				username: username,
+				admin: json.group == 2,
+				invite_system: process.env.INVITE_ONLY,
+				rank: result 
+			});
+		})
 	})
 });
 
